@@ -1,0 +1,21 @@
+﻿
+<input type="text" value="@Value" @onchange="UpdateValue" @onblur="OnBlur" />
+
+@code {
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    public void OnBlur()
+    {
+        Console.WriteLine("OnBlur");
+    }
+
+    public void UpdateValue(ChangeEventArgs e)
+    {
+        Value = e.Value.ToString();
+        _ = ValueChanged.InvokeAsync(Value);
+    }
+}
